@@ -18,8 +18,8 @@ from eth_abi import encode
 g_success, g_fail = 0, 0
 
 logger.remove()
-logger.add(sys.stdout, colorize=True, format="<w>{time:HH:mm:ss:SSS}</w> | <r>{extra[fail]}</r>-<g>{extra[success]}</g> | <level>{message}</level>")
-logger = logger.patch(lambda record: record["extra"].update(fail=g_fail, success=g_success))
+logger.add('my.log', format='<g>{time:YYYY-MM-DD HH:mm:ss:SSS}</g> | <c>{level}</c> | <level>{message}</level>')
+logger.add(sys.stdout, format='<g>{time:YYYY-MM-DD HH:mm:ss:SSS}</g> | <c>{level}</c> | <level>{message}</level>')
 
 # https://doptest.dop.org?id=ZdbWvzM
 class Dop:
