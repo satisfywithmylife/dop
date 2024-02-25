@@ -1,0 +1,6 @@
+*.txt
+*.log
+venv
+test.*
+__pycache__/
+main2.py

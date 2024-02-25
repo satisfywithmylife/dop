@@ -1,0 +1,255 @@
+[
+    {
+              "inputs":  [
+                        {
+                                  "internalType":  "address[]",
+                                  "name":  "externalTokens_",
+                                  "type":  "address[]"
+                        }
+              ],
+              "stateMutability":  "nonpayable",
+              "type":  "constructor"
+    },
+    {
+              "anonymous":  false,
+              "inputs":  [
+                        {
+                                  "indexed":  true,
+                                  "internalType":  "address",
+                                  "name":  "recipient",
+                                  "type":  "address"
+                        }
+              ],
+              "name":  "tokensClaimed",
+              "type":  "event"
+    },
+    {
+              "inputs":  [
+                        {
+                                  "internalType":  "address[]",
+                                  "name":  "tokens",
+                                  "type":  "address[]"
+                        },
+                        {
+                                  "internalType":  "uint256[]",
+                                  "name":  "amounts",
+                                  "type":  "uint256[]"
+                        }
+              ],
+              "name":  "addMoreTokens",
+              "outputs":  [
+                        {
+                                  "internalType":  "bool",
+                                  "name":  "",
+                                  "type":  "bool"
+                        }
+              ],
+              "stateMutability":  "nonpayable",
+              "type":  "function"
+    },
+    {
+              "inputs":  [
+                        {
+                                  "internalType":  "address",
+                                  "name":  "wallet",
+                                  "type":  "address"
+                        }
+              ],
+              "name":  "addRole",
+              "outputs":  [
+                        {
+                                  "internalType":  "bool",
+                                  "name":  "",
+                                  "type":  "bool"
+                        }
+              ],
+              "stateMutability":  "nonpayable",
+              "type":  "function"
+    },
+    {
+              "inputs":  [
+                        {
+                                  "internalType":  "address",
+                                  "name":  "",
+                                  "type":  "address"
+                        }
+              ],
+              "name":  "adminRole",
+              "outputs":  [
+                        {
+                                  "internalType":  "bool",
+                                  "name":  "",
+                                  "type":  "bool"
+                        }
+              ],
+              "stateMutability":  "view",
+              "type":  "function"
+    },
+    {
+              "inputs":  [
+                        {
+                                  "internalType":  "uint256",
+                                  "name":  "",
+                                  "type":  "uint256"
+                        }
+              ],
+              "name":  "amountTokensInWei",
+              "outputs":  [
+                        {
+                                  "internalType":  "uint256",
+                                  "name":  "",
+                                  "type":  "uint256"
+                        }
+              ],
+              "stateMutability":  "view",
+              "type":  "function"
+    },
+    {
+              "inputs":  [
+                        {
+                                  "internalType":  "address",
+                                  "name":  "wallet",
+                                  "type":  "address"
+                        }
+              ],
+              "name":  "blackListWallet",
+              "outputs":  [
+                        {
+                                  "internalType":  "bool",
+                                  "name":  "",
+                                  "type":  "bool"
+                        }
+              ],
+              "stateMutability":  "nonpayable",
+              "type":  "function"
+    },
+    {
+              "inputs":  [
+                        {
+                                  "internalType":  "address",
+                                  "name":  "",
+                                  "type":  "address"
+                        }
+              ],
+              "name":  "blackListedWallet",
+              "outputs":  [
+                        {
+                                  "internalType":  "bool",
+                                  "name":  "",
+                                  "type":  "bool"
+                        }
+              ],
+              "stateMutability":  "view",
+              "type":  "function"
+    },
+    {
+              "inputs":  [
+                        {
+                                  "internalType":  "uint256[]",
+                                  "name":  "amounts",
+                                  "type":  "uint256[]"
+                        }
+              ],
+              "name":  "changeAmounts",
+              "outputs":  [
+                        {
+                                  "internalType":  "bool",
+                                  "name":  "",
+                                  "type":  "bool"
+                        }
+              ],
+              "stateMutability":  "nonpayable",
+              "type":  "function"
+    },
+    {
+              "inputs":  [
+                        {
+                                  "internalType":  "address[]",
+                                  "name":  "tokens",
+                                  "type":  "address[]"
+                        }
+              ],
+              "name":  "changeTokens",
+              "outputs":  [
+                        {
+                                  "internalType":  "bool",
+                                  "name":  "",
+                                  "type":  "bool"
+                        }
+              ],
+              "stateMutability":  "nonpayable",
+              "type":  "function"
+    },
+    {
+              "inputs":  [
+                        {
+                                  "internalType":  "address",
+                                  "name":  "",
+                                  "type":  "address"
+                        }
+              ],
+              "name":  "claimedTokens",
+              "outputs":  [
+                        {
+                                  "internalType":  "bool",
+                                  "name":  "",
+                                  "type":  "bool"
+                        }
+              ],
+              "stateMutability":  "view",
+              "type":  "function"
+    },
+    {
+              "inputs":  [
+                        {
+                                  "internalType":  "uint256",
+                                  "name":  "",
+                                  "type":  "uint256"
+                        }
+              ],
+              "name":  "externalTokens",
+              "outputs":  [
+                        {
+                                  "internalType":  "address",
+                                  "name":  "",
+                                  "type":  "address"
+                        }
+              ],
+              "stateMutability":  "view",
+              "type":  "function"
+    },
+    {
+              "inputs":  [
+                        {
+                                  "internalType":  "address",
+                                  "name":  "recipient",
+                                  "type":  "address"
+                        }
+              ],
+              "name":  "mintTokens",
+              "outputs":  [
+                        {
+                                  "internalType":  "bool",
+                                  "name":  "",
+                                  "type":  "bool"
+                        }
+              ],
+              "stateMutability":  "nonpayable",
+              "type":  "function"
+    },
+    {
+              "inputs":  [
+
+              ],
+              "name":  "totalClaimed",
+              "outputs":  [
+                        {
+                                  "internalType":  "uint256",
+                                  "name":  "",
+                                  "type":  "uint256"
+                        }
+              ],
+              "stateMutability":  "view",
+              "type":  "function"
+    }
+]
