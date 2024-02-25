@@ -17,7 +17,7 @@ pip install -r reuqirements.txt
 + [nstproxy国外住宅代理购买](https://app.nstproxy.com/register?i=EM00Pe)
 + [推特账号购买](https://hdd.cm) [@fooyao](https://twitter.com/fooyao)
 
-**充值后，创建频道，复制频道名和密码，分别写入config.py的```nstproxy_Channel```,```nstproxy_Password```中 ***
+**充值后，创建频道，复制频道名和密码，分别写入config.py的```nstproxy_Channel```,```nstproxy_Password```中**
 
 **购买后的推特账号，放在项目的tw.txt文件夹内**
 
