@@ -1,6 +1,6 @@
 <h1 align="center">DopTestnet</h1>
 
-<p align="center">测试网任务<a href="https://doptest.dop.org?id=ZdbWvzM">Skygate</a></p>
+<p align="center">测试网任务<a href="https://doptest.dop.org?id=ZdbWvzM">Testnet</a></p>
 <p align="center">
 <img src="https://img.shields.io/badge/python-3670A0?style=for-the-badge&logo=python&logoColor=ffdd54">
 </p>
@@ -15,7 +15,7 @@ pip install -r reuqirements.txt
 
 ## 💻 准备
 + [nstproxy购买]('https://app.nstproxy.com/register?i=EM00Pe')
-+ [推特账号购买]('hdd.cm')
++ [推特账号购买]('https://hdd.cm')
 **充值后，创建频道，复制频道名和密码，分别写入config.py的```nstproxy_Channel```,```nstproxy_Password```中 ***
 **购买后的推特账号，放在项目的tw.txt文件夹内**
 
