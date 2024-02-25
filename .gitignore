@@ -4,3 +4,4 @@ venv
 test.*
 __pycache__/
 main2.py
+!requirements.txt
