@@ -21,9 +21,6 @@ pip install -r requirements.txt
 
 **购买后的推特账号，放在项目的tw.txt文件夹内**
 
-****
-
-****
 ```
 首次执行 python make.py, 仅需执行一次
 跑任务 python main.py 自动检测哪些任务已完成，完成的会跳过，可重复执行
