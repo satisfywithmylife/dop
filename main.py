@@ -334,7 +334,7 @@ class Dop:
         tx = await contract.functions.mintTokens(self.account.address).build_transaction(tx_data)
         tx_hash = await self._make_tx(tx=tx)
         
-        if await self.update_rewards('claim_Dop'):
+        if await self.update_rewards('claim_Testnet_Assets'):
             self.add_log('claim testnet assets 成功', tx_hash)
             return True
             
