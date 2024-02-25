@@ -26,6 +26,7 @@ pip install -r requirements.txt
 跑任务 python main.py 自动检测哪些任务已完成，完成的会跳过，可重复执行
 ```
 ```python
+# main.py 部分说明
 async def main(file_name, code, loop_invite):
     global g_fail, g_success
     with open(file_name, 'r', encoding='UTF-8') as f, open('dropcoin_success.txt', 'a') as s, open('dropcoin_error.txt', 'a') as e, open('my.txt', 'a') as z:  # eth----auth_token
