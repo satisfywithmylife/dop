@@ -10,7 +10,7 @@
 + [下载项目](https://sites.northwestern.edu/researchcomputing/resources/downloading-from-github) 并解压
 + 安装依赖包:
 ```python
-pip install -r reuqirements.txt
+pip install -r requirements.txt
 ```
 
 ## 💻 准备
