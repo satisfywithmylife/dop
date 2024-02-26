@@ -90,7 +90,7 @@ class Dop:
         url = self.dop_host.format('rewards')
         geo = await self.get_geo_info()
         payload = {
-            "email": self.email,
+            "email": await self.get_mail(),
             "externalWalletAddress": self.account.address,
             "internalWalletAddress": self.account.address.lower(),
             "ip": await self.get_ip(),
