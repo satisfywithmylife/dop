@@ -510,13 +510,18 @@ class Dop:
                     
                     return False, task_config[0]
                 elif len(task_config) == 3:
-                    while 1:
+                    check_times = 50
+                    while check_times:
                         balance = await self.w3.eth.get_balance(self.account.address)
                         if not balance:
                             await asyncio.sleep(1)
+                            check_times -= 1
                         else:
                             self.add_log('领水已到账')
                             break
+                    if not check_times:
+                        self.add_log('水一直未到账，跳过')
+                        return False, task_config[0]
         
         return True, task_config[0]
      
