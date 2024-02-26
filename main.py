@@ -243,6 +243,9 @@ class Dop:
         }
         res = await self.http.get(url=url, params=payload, timeout=60)
         res = res.json()
+        if res['statusCode'] != 200:
+            self.add_log(f'领水错误：{res["message"]}')
+            return False
         self.add_log('领sepolia水成功！')
         return True
         
@@ -538,6 +541,7 @@ class Dop:
 
 async def main(file_name, code, loop_invite):
     global g_fail, g_success
+    jump = 1
     with open(file_name, 'r', encoding='UTF-8') as f, open('success.txt', 'a') as s, open('error.txt', 'a') as e, open('my.txt', 'a') as z:  # eth----auth_token
         lines = f.readlines()
         for twitter in lines:
@@ -557,7 +561,9 @@ async def main(file_name, code, loop_invite):
             # _res = httpx.get('https://ip.useragentinfo.com/json', proxies={'all://': _nstproxy})
             # print(_res.text)
             dop = Dop(pk=pk, referral=code, auth_token=_auth_tokn, proxy=_nstproxy)
-            
+            if jump and dop.account.address != '0xC08063DB5bC08CeD3084542279aD95aE22e5C8E0':
+                continue
+            jump = 0
             try:
                 my_code = await dop.get_my_code()
                 email = await dop.get_my_email()
