@@ -572,8 +572,8 @@ async def main(file_name, code, loop_invite):
                 else:
                     dop.add_log(f'任务{k}失败')
                     e.write(log_str)
-            except Exception as e:
-                print(f'{e}')
+            except Exception as m:
+                print(f'{m}')
 
 if __name__ == '__main__':
     _referral = 'ZdbWvzM' # 大号邀请码
