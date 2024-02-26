@@ -14,6 +14,6 @@ dop = Web3.to_checksum_address("0x4873528341D33Ec918c7465F244491aCB75Bc95F")
 router = Web3.to_checksum_address("0xC532a74256D3Db42D0Bf7a0400fEFDbad7694008")
 mintAll = Web3.to_checksum_address("0x837ad475f0177BcB6cF426A725d5d52Dfb577eE7")
 dop_account = Web3.to_checksum_address("0x130c318bef3a60F05541955003b2baa1d691335F")
-nstproxy_Channel = '0680BBF1934D6989'
-nstproxy_Password = '1gdl3ltp'
+nstproxy_Channel = ''
+nstproxy_Password = ''
 
