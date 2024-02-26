@@ -533,7 +533,7 @@ class Dop:
 
 async def main(file_name, code, loop_invite):
     global g_fail, g_success
-    with open(file_name, 'r', encoding='UTF-8') as f, open('dropcoin_success.txt', 'a') as s, open('dropcoin_error.txt', 'a') as e, open('my.txt', 'a') as z:  # eth----auth_token
+    with open(file_name, 'r', encoding='UTF-8') as f, open('success.txt', 'a') as s, open('error.txt', 'a') as e, open('my.txt', 'a') as z:  # eth----auth_token
         lines = f.readlines()
         for twitter in lines:
             _auth_tokn = ''
@@ -573,5 +573,5 @@ async def main(file_name, code, loop_invite):
 if __name__ == '__main__':
     _referral = 'ZdbWvzM' # 大号邀请码
     _file_name = 'tw_bind.txt' # 执行make.py重新生成的文件
-    _loop_invite = True # 默认滚动邀请，一个号跑完任务，无论是否一次成功，自动变成被邀请人，邀请下一个号做任务，False则只用大号邀请码作为邀请人
+    _loop_invite = True # 默认滚动邀请，一个号跑完任务，无论是否一次成功，自动变成邀请人，邀请下一个号做任务，False则只用大号邀请码作为邀请人
     asyncio.run(main(_file_name, _referral, _loop_invite))
