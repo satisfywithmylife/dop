@@ -19,7 +19,7 @@ pip install -r requirements.txt
 
 **充值后，创建频道，复制频道名和密码，分别写入config.py的```nstproxy_Channel```,```nstproxy_Password```中**
 
-**购买后的推特账号，放在项目的tw.txt文件夹内**
+**购买后的推特账号，放在项目的tw.txt文件内**
 
 ```
 首次执行 python make.py, 仅需执行一次
@@ -69,7 +69,7 @@ async def main(file_name, code, loop_invite):
 if __name__ == '__main__':
     _referral = 'ZdbWvzM' # 大号邀请码
     _file_name = 'tw_bind.txt' # 执行make.py重新生成的文件
-    _loop_invite = True # 默认滚动邀请，一个号跑完任务，无论是否一次成功，自动变成被邀请人，邀请下一个号做任务，False则只用大号邀请码作为邀请人
+    _loop_invite = True # 默认滚动邀请，一个号跑完任务，无论是否一次成功，自动变成邀请人，邀请下一个号做任务，False则只用大号邀请码作为邀请人
     
     asyncio.run(main(_file_name, _referral, _loop_invite))
 ```
