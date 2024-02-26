@@ -23,7 +23,7 @@ logger.add(sys.stdout, format='<g>{time:YYYY-MM-DD HH:mm:ss:SSS}</g> | <c>{level
 
 # https://doptest.dop.org?id=ZdbWvzM
 class Dop:
-    def __init__(self, email, pk, auth_token, referral='ZdbWvzM', proxy='', gas_scala=1.5):
+    def __init__(self, pk, auth_token, referral='ZdbWvzM', proxy='', gas_scala=1.5):
         proxy = {
             'all://': f'{proxy}' if proxy else None
         }
@@ -37,7 +37,6 @@ class Dop:
             modules={"eth": (AsyncEth,)}
         )
         self.exploer = 'https://sepolia.etherscan.io/tx/{}'
-        self.email = email
         self.proxy_str = proxy
         self.Twitter.headers = {
             'Accept-Language': 'en-US,en;q=0.8',
@@ -64,7 +63,7 @@ class Dop:
     def add_log(self, log_str, tx_hash=''):
         log_str = f'{self.account.address} ' + log_str
         if tx_hash and isinstance(tx_hash, str):
-            log_str += f' | {self.exploer.format(tx_hash)}'
+            log_str += f' | Tx {self.exploer.format(tx_hash)}'
         logger.debug(log_str)
         
     @cached_property
@@ -340,11 +339,124 @@ class Dop:
             
         return False
     
-    def encrypt_sign(self, amount=100000000):
-        pass
+    def encrypt_sign(self, amount):
+        ts = int(time.time()*1000)
+        random_int = random.randint(100000, 999999)
+        sign_list = [str(self.account.address), str(self.account.address), int(amount), random_int, ts]
+        keck_msg = self.w3.solidity_keccak(['address', 'address', 'uint256', 'uint256', 'uint256'], sign_list)
+        h = defunct_hash_message(hexstr=keck_msg.hex())
+        signed_message = self.account.signHash(h)
+        r_int, s_int, v = signed_message.r, signed_message.s, signed_message.v
+        r, s = int.to_bytes(r_int, 32, 'big'), int.to_bytes(s_int, 32, 'big')
+        r, s =  r.hex(), s.hex()
+        return r,s,v,ts,random_int
         
+    
     async def encrypt_assets(self, coin_address=usdt):
-        pass
+        token_contract = self.w3.eth.contract(address=coin_address, abi=self.load_abi('erc20'))
+        # amount = int(random.randint(100, 200) * 1e6)
+        amount = await token_contract.functions.balanceOf(self.account.address).call()
+        approve_res = await self.approve(token_contract, tpl, amount)
+        r,s,v,ts,random_int = self.encrypt_sign(amount)
+        if approve_res:
+            method_id = '0x79df7682'
+            args = [
+                self.account.address,
+                random_int,
+                ts,
+                amount,
+                21,
+                v,
+                Web3.to_bytes(hexstr=r),
+                Web3.to_bytes(hexstr=s),
+            ]
+            tx_data = await self.get_tx_data()
+            txn_data = method_id + encode(types=["address","uint256","uint256","uint256","uint256","uint256","bytes32","bytes32"], args=args).hex()
+
+            tx_data.update({
+                'data': txn_data,
+                'to': tpl
+            })
+            # print(tx_data)
+            tx_hash = await self._make_tx(tx=tx_data)
+            if tx_hash:
+                if await self.update_rewards('encrypt_Assets'):
+                    self.add_log('encrypt assets 成功', tx_hash)
+                    return True
+                
+            return False
+            
+    async def send_assets(self, coin_address=dop):
+        token_contract = self.w3.eth.contract(address=coin_address, abi=self.load_abi('erc20'))
+        # balance = await token_contract.functions.balanceOf(self.account.address).call()
+        # print(balance)
+        amount = int(random.randint(1, 3) * 1e6)
+        balance = await token_contract.functions.balanceOf(self.account.address).call()
+        approve_res = await self.approve(token_contract, tpl, balance)
+        r,s,v,ts,random_int = self.encrypt_sign(amount)
+        if approve_res:
+            method_id = '0xe54a9a7c'
+            args = [
+                self.account.address,
+                dop_account,
+                amount,
+                random_int,
+                ts,
+                21,
+                v,
+                Web3.to_bytes(hexstr=r),
+                Web3.to_bytes(hexstr=s),
+            ]
+            tx_data = await self.get_tx_data()
+            txn_data = method_id + encode(types=["address","address","uint256","uint256","uint256","uint256","uint256","bytes32","bytes32"], args=args).hex()
+
+            tx_data.update({
+                'data': txn_data,
+                'to': tpl
+            })
+            tx_hash = await self._make_tx(tx=tx_data, gas=350000)
+            if tx_hash:
+                if await self.update_rewards('send_Assets'):
+                    self.add_log('send assets 成功', tx_hash)
+                    return True
+            
+            return False
+            
+    
+    async def decrypt_assets(self, coin_address=usdt):
+        token_contract = self.w3.eth.contract(address=coin_address, abi=self.load_abi('erc20'))
+        amount = int(random.randint(3, 7) * 1e6)
+        approve_res = await self.approve(token_contract, tpl, amount)
+        r,s,v,ts,random_int = self.encrypt_sign(amount)
+        if approve_res:
+            method_id = '0x676df6b3'
+            args = [
+                self.account.address,
+                self.account.address,
+                amount,
+                random_int,
+                ts,
+                21,
+                v,
+                Web3.to_bytes(hexstr=r),
+                Web3.to_bytes(hexstr=s),
+            ]
+            tx_data = await self.get_tx_data()
+            txn_data = method_id + encode(types=["address","address","uint256","uint256","uint256","uint256","uint256","bytes32","bytes32"], args=args).hex()
+
+            tx_data.update({
+                'data': txn_data,
+                'to': tpl
+            })
+            # print(tx_data)
+            
+            tx_hash = await self._make_tx(tx=tx_data)
+            if tx_hash:
+                if await self.update_rewards('decrypt_Assets'):
+                    self.add_log('decrypt assets 成功', tx_hash)
+                    return True
+            
+            return False
         
     # 刷新奖励
     async def update_rewards(self, task_name):
@@ -364,17 +476,14 @@ class Dop:
             return True
         
         return False
-            
-    async def send_assets(self, coin_address=dop):
-        pass
-            
-    
-    async def decrypt_assets(self, coin_address=usdt):
-        pass
                 
     async def get_my_code(self):
         u_info = await self.get_user_info()
         return u_info['updatedReward']['influencerId']['referalCode']
+    
+    async def get_my_email(self):
+        u_info = await self.get_user_info()
+        return u_info['updatedReward']['influencerId']['email']
     
     async def check_my_referor(self):
         u_info = await self.get_user_info()
@@ -390,9 +499,9 @@ class Dop:
             ['claim_Sepolia', self.claim_sepolia, 1],
             ['claim_Dop', self.claim_dop],
             ['claim_Testnet_Assets', self.claim_testnet_assets],
-            # ['encrypt_Assets', self.encrypt_assets],
-            # ['send_Assets', self.send_assets],
-            # ['decrypt_Assets', self.decrypt_assets],
+            ['encrypt_Assets', self.encrypt_assets],
+            ['send_Assets', self.send_assets],
+            ['decrypt_Assets', self.decrypt_assets],
             ['threeInvites', None]
         ]
         for task_config in task_list:
@@ -412,15 +521,15 @@ class Dop:
         return True, task_config[0]
      
           
-async def get_mail():
-    http = httpx.AsyncClient(verify=False, timeout=120)
-    while 1:
-        try:
-            res = await http.get(f'https://www.1secmail.com/api/v1/?action=genRandomMailbox')
-            if '@' in res.text:
-                return res.json()[0]
-        except:
-            pass
+    async def get_mail(self):
+        while 1:
+            try:
+                res = await self.http.get(f'https://www.1secmail.com/api/v1/?action=genRandomMailbox')
+                if '@' in res.text:
+                    return res.json()[0]
+            except:
+                print('获取email失败')
+                pass
 
 async def main(file_name, code, loop_invite):
     global g_fail, g_success
@@ -436,20 +545,20 @@ async def main(file_name, code, loop_invite):
             if not _auth_tokn:
                 continue
             pk = t_list[1]
-            mail = await get_mail()
             
             _nstproxy = ''
 
             _nstproxy = f"http://{nstproxy_Channel}-residential-country_ANY-r_5m-s_BsqLCLkiVu:{nstproxy_Password}@gw-us.nstproxy.com:24125"
             # _res = httpx.get('https://ip.useragentinfo.com/json', proxies={'all://': _nstproxy})
             # print(_res.text)
-            dop = Dop(email=mail, pk=pk, referral=code, auth_token=_auth_tokn, proxy=_nstproxy)
+            dop = Dop(pk=pk, referral=code, auth_token=_auth_tokn, proxy=_nstproxy)
             
             try:
                 my_code = await dop.get_my_code()
+                email = await dop.get_my_email()
                 if loop_invite:
                     code = my_code
-                log_str = f'{dop.account.address}----{pk}----{mail}----{tw}----{my_code}\n'
+                log_str = f'{dop.account.address}----{pk}----{email}----{tw}----{my_code}\n'
                 res, k = await dop.make_task()
                 
                 if res:
@@ -458,8 +567,8 @@ async def main(file_name, code, loop_invite):
                 else:
                     dop.add_log(f'任务{k}失败')
                     e.write(log_str)
-            except:
-                z.write(log_str)
+            except Exception as e:
+                print(f'{e}')
 
 if __name__ == '__main__':
     _referral = 'ZdbWvzM' # 大号邀请码
