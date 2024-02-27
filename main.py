@@ -154,7 +154,6 @@ class Dop:
         try:
 
             url = f'https://api.twitter.com/oauth/authorize?oauth_token={self.oauth_token}'
-            self.add_log(f'{url}')
             response = await self.Twitter.get(url)
             if 'authenticity_token' in response.text:
                 self.authenticity_token = response.text.split('authenticity_token" value="')[1].split('"')[0]
