@@ -41,17 +41,17 @@ async def main(file_name, code, loop_invite):
             if not _auth_tokn:
                 continue
             pk = t_list[1]
-            mail = await get_mail()
             
             _nstproxy = ''
 
             _nstproxy = f"http://{nstproxy_Channel}-residential-country_ANY-r_5m-s_BsqLCLkiVu:{nstproxy_Password}@gw-us.nstproxy.com:24125"
             # _res = httpx.get('https://ip.useragentinfo.com/json', proxies={'all://': _nstproxy})
             # print(_res.text)
-            dop = Dop(email=mail, pk=pk, referral=code, auth_token=_auth_tokn, proxy=_nstproxy)
+            dop = Dop(pk=pk, referral=code, auth_token=_auth_tokn, proxy=_nstproxy)
             
             try:
                 my_code = await dop.get_my_code()
+                mail = await dop.get_my_email()
                 if loop_invite:
                     code = my_code
                 log_str = f'{dop.account.address}----{pk}----{mail}----{tw}----{my_code}\n'
@@ -63,8 +63,8 @@ async def main(file_name, code, loop_invite):
                 else:
                     dop.add_log(f'任务{k}失败')
                     e.write(log_str)
-            except:
-                z.write(log_str)
+            except Exception as m:
+                print(f'{m}')
 
 if __name__ == '__main__':
     _referral = 'ZdbWvzM' # 大号邀请码
@@ -75,7 +75,12 @@ if __name__ == '__main__':
 ```
 
 ## 其他  ✔️ 
-**推特绑定接口经常出错，可能是账号或者代理问题**
+**推特绑定接口经常出错，可能是账号(比如推特注册时间限制)或者代理问题**
+
+**水龙头领水暂时不能到账，报statusCode500错误**
+## 有问题加群
+<img src="https://github.com/satisfywithmylife/dop/assets/30144807/d1dae58b-9924-4cd0-9384-60505e53b7d5)" width="30%">
+
 
 ## 📧 Contacts
 + 推特 - [@shawngmy](https://twitter.com/shawngmy)

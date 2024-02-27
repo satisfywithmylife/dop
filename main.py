@@ -154,7 +154,6 @@ class Dop:
         try:
 
             url = f'https://api.twitter.com/oauth/authorize?oauth_token={self.oauth_token}'
-            self.add_log(f'{url}')
             response = await self.Twitter.get(url)
             if 'authenticity_token' in response.text:
                 self.authenticity_token = response.text.split('authenticity_token" value="')[1].split('"')[0]
@@ -556,13 +555,15 @@ async def main(file_name, code, loop_invite):
             pk = t_list[1]
             
             _nstproxy = ''
-
+            if not nstproxy_Channel or not nstproxy_Password:
+                Logger.error('请配置 nstproxy 代理信息')
+                return
             _nstproxy = f"http://{nstproxy_Channel}-residential-country_ANY-r_5m-s_BsqLCLkiVu:{nstproxy_Password}@gw-us.nstproxy.com:24125"
             # _res = httpx.get('https://ip.useragentinfo.com/json', proxies={'all://': _nstproxy})
             # print(_res.text)
             dop = Dop(pk=pk, referral=code, auth_token=_auth_tokn, proxy=_nstproxy)
-            if jump and dop.account.address != '0xC08063DB5bC08CeD3084542279aD95aE22e5C8E0':
-                continue
+            # if jump and dop.account.address != '0xC08063DB5bC08CeD3084542279aD95aE22e5C8E0':
+            #     continue
             jump = 0
             try:
                 my_code = await dop.get_my_code()
