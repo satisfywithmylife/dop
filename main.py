@@ -324,7 +324,7 @@ class Dop:
         tx = await contract.functions.mint(Web3.to_wei(1000, 'ether')).build_transaction(tx_data)
         tx_hash = await self._make_tx(tx=tx)
         if await self.update_rewards('claim_Dop'):
-            self.add_log('encrypt assets 成功', tx_hash)
+            self.add_log('claim dop 成功', tx_hash)
             return True
             
         return False
@@ -392,7 +392,7 @@ class Dop:
         token_contract = self.w3.eth.contract(address=coin_address, abi=self.load_abi('erc20'))
         # balance = await token_contract.functions.balanceOf(self.account.address).call()
         # print(balance)
-        amount = int(random.randint(1, 3) * 1e6)
+        amount = int(random.randint(1, 3) * 1e4)
         balance = await token_contract.functions.balanceOf(self.account.address).call()
         approve_res = await self.approve(token_contract, tpl, balance)
         r,s,v,ts,random_int = self.encrypt_sign(amount)
@@ -556,7 +556,7 @@ async def main(file_name, code, loop_invite):
             
             _nstproxy = ''
             if not nstproxy_Channel or not nstproxy_Password:
-                Logger.error('请配置 nstproxy 代理信息')
+                logger.error('请配置 nstproxy 代理信息')
                 return
             _nstproxy = f"http://{nstproxy_Channel}-residential-country_ANY-r_5m-s_BsqLCLkiVu:{nstproxy_Password}@gw-us.nstproxy.com:24125"
             # _res = httpx.get('https://ip.useragentinfo.com/json', proxies={'all://': _nstproxy})
