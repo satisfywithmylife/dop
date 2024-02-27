@@ -555,7 +555,9 @@ async def main(file_name, code, loop_invite):
             pk = t_list[1]
             
             _nstproxy = ''
-
+            if not nstproxy_Channel or not nstproxy_Password:
+                Logger.error('请配置 nstproxy 代理信息')
+                return
             _nstproxy = f"http://{nstproxy_Channel}-residential-country_ANY-r_5m-s_BsqLCLkiVu:{nstproxy_Password}@gw-us.nstproxy.com:24125"
             # _res = httpx.get('https://ip.useragentinfo.com/json', proxies={'all://': _nstproxy})
             # print(_res.text)
