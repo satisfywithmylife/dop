@@ -560,8 +560,8 @@ async def main(file_name, code, loop_invite):
             # _res = httpx.get('https://ip.useragentinfo.com/json', proxies={'all://': _nstproxy})
             # print(_res.text)
             dop = Dop(pk=pk, referral=code, auth_token=_auth_tokn, proxy=_nstproxy)
-            if jump and dop.account.address != '0xC08063DB5bC08CeD3084542279aD95aE22e5C8E0':
-                continue
+            # if jump and dop.account.address != '0xC08063DB5bC08CeD3084542279aD95aE22e5C8E0':
+            #     continue
             jump = 0
             try:
                 my_code = await dop.get_my_code()
