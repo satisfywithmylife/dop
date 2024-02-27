@@ -76,7 +76,7 @@ if __name__ == '__main__':
 
 ## 其他  ✔️ 
 **推特绑定接口经常出错，可能是账号或者代理问题**
-
+**水龙头领水暂时不能到账，报statusCode500错误**
 ## 有问题加群
 ![image](https://github.com/satisfywithmylife/dop/assets/30144807/d1dae58b-9924-4cd0-9384-60505e53b7d5)
 
