@@ -23,7 +23,7 @@ logger.add(sys.stdout, format='<g>{time:YYYY-MM-DD HH:mm:ss:SSS}</g> | <c>{level
 
 # https://doptest.dop.org?id=ZdbWvzM
 class Dop:
-    def __init__(self, pk, auth_token, referral='ZdbWvzM', proxy='', gas_scala=1.5):
+    def __init__(self, pk, auth_token, referral='ZdbWvzM', proxy='', gas_scala=1.2):
         proxy = {
             'all://': f'{proxy}' if proxy else None
         }
@@ -255,7 +255,7 @@ class Dop:
         
     async def approve(self, token_contract, spender, amount):
         allowance = await token_contract.functions.allowance(self.account.address, spender).call()
-        if allowance > amount:
+        if allowance >= amount:
             return True
         tx_data = await self.get_tx_data()
         approve_tx = await token_contract.functions.approve(
@@ -416,7 +416,7 @@ class Dop:
                 'data': txn_data,
                 'to': tpl
             })
-            tx_hash = await self._make_tx(tx=tx_data, gas=350000)
+            tx_hash = await self._make_tx(tx=tx_data, gas=200000)
             if tx_hash:
                 if await self.update_rewards('send_Assets'):
                     self.add_log('send assets 成功', tx_hash)
