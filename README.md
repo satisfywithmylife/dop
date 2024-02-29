@@ -1,5 +1,5 @@
 <h1 align="center">DopTestnet</h1>
-<h3 align="center" class="red;">已于24/02/09 22:00:00 结束！此项目已无法运行</h3>
+<h3 align="center" class="red;">已于24/02/29 22:00:00 结束！此项目已无法运行</h3>
 <p align="center">测试网任务  <a href="https://doptest.dop.org?id=ZdbWvzM">Testnet</a></p>
 <p align="center">
 <img src="https://img.shields.io/badge/python-3670A0?style=for-the-badge&logo=python&logoColor=ffdd54">
